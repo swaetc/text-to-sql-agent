@@ -1,0 +1,92 @@
+[
+  {
+    "id": "lookup_1",
+    "category": "simple_lookup",
+    "question": "List all customers from Cape Town.",
+    "expected_sql": "SELECT * FROM customers WHERE city = 'Cape Town';"
+  },
+  {
+    "id": "lookup_2",
+    "category": "simple_lookup",
+    "question": "What products are in the Electronics category?",
+    "expected_sql": "SELECT * FROM products WHERE category = 'Electronics';"
+  },
+  {
+    "id": "agg_1",
+    "category": "aggregation",
+    "question": "What is the total quantity of items ordered across all orders?",
+    "expected_sql": "SELECT SUM(quantity) FROM order_items;"
+  },
+  {
+    "id": "agg_2",
+    "category": "aggregation",
+    "question": "How many orders does each status have?",
+    "expected_sql": "SELECT status, COUNT(*) FROM orders GROUP BY status;"
+  },
+  {
+    "id": "filter_agg_1",
+    "category": "filter_plus_aggregation",
+    "question": "What is the average unit price of products in the Books category?",
+    "expected_sql": "SELECT AVG(unit_price) FROM products WHERE category = 'Books';"
+  },
+  {
+    "id": "filter_agg_2",
+    "category": "filter_plus_aggregation",
+    "question": "How many orders were placed by customers in Durban?",
+    "expected_sql": "SELECT COUNT(*) FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE c.city = 'Durban';"
+  },
+  {
+    "id": "join_1",
+    "category": "multi_table_join",
+    "question": "Which customers have placed at least one cancelled order?",
+    "expected_sql": "SELECT DISTINCT c.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'cancelled';"
+  },
+  {
+    "id": "join_2",
+    "category": "multi_table_join",
+    "question": "What is the total revenue per product category?",
+    "expected_sql": "SELECT p.category, SUM(oi.quantity * oi.unit_price) AS revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category;"
+  },
+  {
+    "id": "rank_1",
+    "category": "ranking",
+    "question": "Who are the top 5 customers by total amount spent?",
+    "expected_sql": "SELECT c.name, SUM(oi.quantity * oi.unit_price) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id GROUP BY c.customer_id ORDER BY total_spent DESC LIMIT 5;"
+  },
+  {
+    "id": "rank_2",
+    "category": "ranking",
+    "question": "What are the 3 best-selling products by quantity?",
+    "expected_sql": "SELECT p.name, SUM(oi.quantity) AS total_qty FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.product_id ORDER BY total_qty DESC LIMIT 3;"
+  },
+  {
+    "id": "time_1",
+    "category": "time_based",
+    "question": "How many orders were placed in the first half of 2025?",
+    "expected_sql": "SELECT COUNT(*) FROM orders WHERE order_date >= '2025-01-01' AND order_date <= '2025-06-30';"
+  },
+  {
+    "id": "time_2",
+    "category": "time_based",
+    "question": "How many new customers signed up in 2024?",
+    "expected_sql": "SELECT COUNT(*) FROM customers WHERE signup_date >= '2024-01-01' AND signup_date < '2025-01-01';"
+  },
+  {
+    "id": "tricky_1",
+    "category": "ambiguous_phrasing",
+    "question": "Who are the biggest spenders?",
+    "expected_sql": "SELECT c.name, SUM(oi.quantity * oi.unit_price) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id GROUP BY c.customer_id ORDER BY total_spent DESC LIMIT 10;"
+  },
+  {
+    "id": "tricky_2",
+    "category": "no_valid_answer",
+    "question": "What is the customer's loyalty tier?",
+    "expected_sql": ""
+  },
+  {
+    "id": "tricky_3",
+    "category": "no_valid_answer",
+    "question": "Show me all refunds issued last month.",
+    "expected_sql": ""
+  }
+]
