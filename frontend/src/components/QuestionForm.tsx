@@ -24,14 +24,14 @@ export function QuestionForm({ onAsk, loading }: Props) {
 
   return (
     <div className="w-full">
-      <div className="mb-3 flex flex-wrap gap-2">
+      <div className="mb-4 flex flex-wrap gap-2">
         {EXAMPLE_QUESTIONS.map((example) => (
           <button
             key={example}
             type="button"
             onClick={() => pickExample(example)}
             disabled={loading}
-            className="rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-sm text-slate-600 transition hover:border-blue-400 hover:text-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:text-[13px]"
+            className="rounded-[4px] border border-hairline bg-transparent px-3.5 py-1.5 font-sans text-[13px] text-muted transition-colors hover:border-accent hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
           >
             {example}
           </button>
@@ -45,12 +45,12 @@ export function QuestionForm({ onAsk, loading }: Props) {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Ask a question about your data…"
           disabled={loading}
-          className="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:opacity-60"
+          className="flex-1 rounded-[4px] border border-hairline bg-white px-4 py-3 font-sans text-base text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-accent disabled:opacity-60"
         />
         <button
           type="submit"
           disabled={loading || !question.trim()}
-          className="rounded-xl bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-[4px] bg-accent px-6 py-3 font-sans text-base font-medium text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? 'Thinking…' : 'Ask'}
         </button>

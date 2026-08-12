@@ -36,18 +36,24 @@ export default function App() {
   const chartShape = result ? detectChartShape(result.columns, result.rows) : null
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-        <header className="mb-8 text-center">
-          <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Ask Your Data</h1>
-          <p className="mt-2 text-slate-500">
-            Ask a plain-English question about customers, products, and orders — no SQL required.
+    <div className="min-h-screen bg-paper">
+      <div className="mx-auto max-w-[720px] px-5 py-14 sm:px-6 sm:py-20">
+        <header className="mb-12 border-b border-hairline pb-10 text-center">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+            Field notes from your database
+          </p>
+          <h1 className="mt-3 font-display text-4xl font-bold leading-[1.15] text-ink sm:text-5xl">
+            The Data Desk
+          </h1>
+          <p className="mx-auto mt-4 max-w-md text-[15px] text-muted">
+            Plain-English reporting on customers, orders, and revenue — no SQL
+            required.
           </p>
         </header>
 
         <QuestionForm onAsk={handleAsk} loading={loading} />
 
-        <div className="mt-8 flex flex-col gap-5">
+        <div className="mt-10 flex flex-col gap-8">
           {loading && <LoadingState />}
           {!loading && error && <ErrorState message={error} />}
 

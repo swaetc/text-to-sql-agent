@@ -13,9 +13,10 @@ interface Props {
   shape: ChartShape
 }
 
-const BAR_COLOR = '#2a78d6'
-const GRID_COLOR = '#e1e0d9'
-const AXIS_COLOR = '#898781'
+const BAR_COLOR = '#8c3f3f'
+const GRID_COLOR = '#dcdad4'
+const AXIS_COLOR = '#5b5f66'
+const TICK_FONT = { fill: AXIS_COLOR, fontSize: 12, fontFamily: '"JetBrains Mono", monospace' }
 
 function formatValue(value: number): string {
   return Number.isInteger(value) ? value.toLocaleString() : value.toLocaleString(undefined, { maximumFractionDigits: 2 })
@@ -38,10 +39,11 @@ function ChartTooltip({
   if (!active || !payload || payload.length === 0) return null
   const item = payload[0]
   return (
-    <div className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-md">
-      <p className="text-slate-500">{item.payload.category}</p>
-      <p className="font-semibold text-slate-900">
-        {formatValue(item.value)} <span className="font-normal text-slate-400">{valueLabel}</span>
+    <div className="rounded-[4px] border border-hairline bg-white px-3 py-2 font-sans text-sm">
+      <p className="text-muted">{item.payload.category}</p>
+      <p className="font-mono font-semibold text-ink">
+        {formatValue(item.value)}{' '}
+        <span className="font-sans font-normal text-muted">{valueLabel}</span>
       </p>
     </div>
   )
@@ -56,30 +58,25 @@ export function ResultChart({ shape }: Props) {
   const chartHeight = Math.max(180, data.length * 40 + 40)
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
-      <p className="mb-3 text-sm font-medium text-slate-600">
+    <div className="rounded-[4px] border border-hairline bg-white p-4 sm:p-5">
+      <p className="mb-3 font-sans text-sm font-medium text-ink">
         {valueLabel}
         {categoryLabel ? ` by ${categoryLabel}` : ''}
       </p>
       <ResponsiveContainer width="100%" height={chartHeight}>
         <BarChart data={data} layout="vertical" margin={{ top: 4, right: 24, bottom: 4, left: 0 }}>
           <CartesianGrid horizontal={false} stroke={GRID_COLOR} strokeDasharray="0" />
-          <XAxis
-            type="number"
-            tick={{ fill: AXIS_COLOR, fontSize: 12 }}
-            axisLine={{ stroke: GRID_COLOR }}
-            tickLine={false}
-          />
+          <XAxis type="number" tick={TICK_FONT} axisLine={{ stroke: GRID_COLOR }} tickLine={false} />
           <YAxis
             type="category"
             dataKey="category"
             width={yAxisWidth}
-            tick={{ fill: '#52514e', fontSize: 12 }}
+            tick={TICK_FONT}
             axisLine={{ stroke: GRID_COLOR }}
             tickLine={false}
           />
           <Tooltip
-            cursor={{ fill: 'rgba(42, 120, 214, 0.06)' }}
+            cursor={{ fill: 'rgba(140, 63, 63, 0.07)' }}
             content={<ChartTooltip valueLabel={valueLabel} />}
           />
           <Bar dataKey="value" fill={BAR_COLOR} radius={[0, 4, 4, 0]} barSize={22} />

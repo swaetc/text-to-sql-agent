@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
 interface Props {
@@ -10,39 +11,35 @@ export function DetailsSection({ sql, provider, attempts }: Props) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white">
+    <div className="border-t border-hairline pt-4">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-sm font-medium text-slate-600 hover:text-slate-900"
+        className="flex items-center gap-1.5 font-sans text-sm text-muted underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
         aria-expanded={open}
       >
-        <span>How was this calculated?</span>
-        <svg
-          className={`h-4 w-4 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-        >
-          <path d="M5 7.5 10 12.5 15 7.5" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        How was this calculated?
+        <ChevronDown
+          className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+          strokeWidth={2}
+        />
       </button>
 
       {open && (
-        <div className="border-t border-slate-200 px-4 py-4">
-          <dl className="mb-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-500">
+        <div className="mt-4">
+          <dl className="mb-3 flex flex-wrap gap-x-6 gap-y-1 font-sans text-xs text-muted">
             {provider && (
               <div>
-                <dt className="inline font-medium text-slate-600">Model: </dt>
-                <dd className="inline">{provider}</dd>
+                <dt className="inline font-medium text-ink">Model: </dt>
+                <dd className="inline font-mono">{provider}</dd>
               </div>
             )}
             <div>
-              <dt className="inline font-medium text-slate-600">Attempts: </dt>
-              <dd className="inline">{attempts}</dd>
+              <dt className="inline font-medium text-ink">Attempts: </dt>
+              <dd className="inline font-mono">{attempts}</dd>
             </div>
           </dl>
-          <pre className="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs leading-relaxed text-slate-100">
+          <pre className="overflow-x-auto rounded-[4px] bg-ink p-3.5 font-mono text-xs leading-relaxed text-paper">
             <code>{sql ?? 'No SQL was generated.'}</code>
           </pre>
         </div>
