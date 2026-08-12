@@ -15,6 +15,12 @@ entirely on free-tier LLM APIs (Groq primary, Gemini fallback). A React
 frontend puts the answer in front of non-technical stakeholders as a written
 finding, not a query result.
 
+## Screenshots
+
+| Landing | Answer + chart | SQL transparency |
+|---|---|---|
+| ![Landing screen](docs/landing-screen.png) | ![Answered question with chart](docs/answer-with-chart.png) | ![How was this calculated panel](docs/sql-transparency.png) |
+
 ## The scenario
 
 To keep this a self-contained, reproducible demo rather than something tied
