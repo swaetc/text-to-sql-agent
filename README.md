@@ -117,14 +117,14 @@ not SQL text match, since there are many valid ways to write the same query.
   replace this with a dedicated read-only DB role instead.
 
 ## Repo structure
+
 ├── app/
-│ ├── core/ # retrieval, LLM client, validator, executor, agent
-│ ├── main.py # FastAPI entrypoint
-│ └── ui.py # removed, replaced by /frontend
-├── frontend/ # React + Vite + Tailwind UI
-├── data/ # schema.sql, seeded store.db
-├── eval/ # eval question set + runner
-├── scripts/ # seed_db.py
-└── requirements.txt
+│   ├── core/              # Retrieval, LLM client, validator, executor, agent
+│   └── main.py            # FastAPI entrypoint
+├── frontend/              # React + Vite + Tailwind UI
+├── data/                  # Schema and seeded database
+├── eval/                  # Evaluation question set and runner
+├── scripts/               # Database seeding scripts
+└── requirements.txt       # Python dependencies
 
 
