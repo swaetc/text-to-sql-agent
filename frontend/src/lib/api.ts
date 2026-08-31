@@ -19,8 +19,16 @@ export async function askQuestion(question: string): Promise<AskResponse> {
   }
 
   if (!res.ok) {
+    let errorDetail = ''
+    try {
+      const errData = (await res.json()) as Partial<AskResponse>
+      errorDetail = errData.error || ''
+    } catch {
+      // fallback to generic message if json parse fails
+    }
     throw new FriendlyError(
-      'Something went wrong on our end while answering that question. Please try again.',
+      errorDetail ||
+        'Something went wrong on our end while answering that question. Please try again.',
     )
   }
 
@@ -28,8 +36,9 @@ export async function askQuestion(question: string): Promise<AskResponse> {
 
   if (data.error && !data.sql) {
     throw new FriendlyError(
-      "We couldn't turn that into a data query. Try rephrasing your question, " +
-        'or use one of the example questions below.',
+      data.error ||
+        "We couldn't turn that into a data query. Try rephrasing your question, " +
+          'or use one of the example questions below.',
     )
   }
 
